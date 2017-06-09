@@ -46,7 +46,7 @@ namespace TimingService
                         {
                             cs.GetService(mark);
                             //此处替换需要调用的代码
-                           // MessageBox.Show("定时执行调用了："+mark);
+                           //MessageBox.Show("定时执行调用了："+mark);
                         }
                         catch (Exception ex)
                         {
