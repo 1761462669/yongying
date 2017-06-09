@@ -42,15 +42,16 @@ namespace TimingService
                     if (split >= 0 && split < 5)
                     {
                         _CallService cs = new _CallService();
+                        String message = "";
                         try
                         {
-                            cs.GetService(mark);
+                            message= cs.GetService(mark);
                             //此处替换需要调用的代码
                            //MessageBox.Show("定时执行调用了："+mark);
                         }
                         catch (Exception ex)
                         {
-                            MessageBox.Show(ex.Message);
+                            MessageBox.Show(ex.Message+"  "+message);
                         }
                     }
                 }

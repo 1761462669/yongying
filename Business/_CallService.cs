@@ -13,17 +13,18 @@ namespace Business
     /// </summary>
     public class _CallService
     {
-        public void GetService(String mark)
+        public String GetService(String mark)
         {
+            String message = "";
             if (!mark.Equals(null) && !mark.Equals(""))
             {
                 switch (mark)
                 {
                     case "spc":
-                        CallSPC();
+                        message = CallSPC();
                         break;
                     case "PackProduceAmount":
-                        CallMes_LK();
+                        message = CallMes_LK();
                         break;
                     case "预留":
 
@@ -32,30 +33,34 @@ namespace Business
                         break;
                 }
             }
+            return message;
         }
         /// <summary>
         /// MES_LK
         /// </summary>
-        private static void CallMes_LK()
+        private static String CallMes_LK()
         {
             MES_LK.MES_LK_Integration_Services mes = new MES_LK.MES_LK_Integration_Services();
             String date = DateTime.Now.AddDays(-1).ToString("yyyy-MM-dd");
-            mes.PackProduceAmount(date);
+            String message = mes.PackProduceAmount(date);
+            return message;
         }
         /// <summary>
         /// SPC
         /// </summary>
-        private static void CallSPC()
+        private static String CallSPC()
         {
+            String message = "";
             SqlDAL sqlDAL = new SqlDAL();
+            //sqlDAL.GetStartWOInfo();
             DataSet ds = sqlDAL.GetStartWO();
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
                 SPC.SPCDataCollectionTest spc = new SPC.SPCDataCollectionTest();
                 String wo = dr["WO"].ToString();
-                spc.SPCSTData(wo, "2");            
+                message = Convert.ToString(spc.SPCSTData(wo, "2"));
             }
-
+            return message;
         }
     }
 }
