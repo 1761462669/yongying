@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="SPCDataCollection">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isExist" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCDataCollectionResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SPCDataCollectionResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCZSZHData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isExist" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCZSZHDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SPCZSZHDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCZSGCData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isExist" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCZSGCDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SPCZSGCDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCJBGCData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isExist" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCJBGCDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SPCJBGCDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCLBCPData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isExist" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCLBCPDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SPCLBCPDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCCPJYData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isExist" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCCPJYDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SPCCPJYDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCDXFXDat">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wo" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="isExist" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCDXFXDatResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SPCDXFXDatResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCYSSJData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCYSSJDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SPCYSSJDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCSTData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="state" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCSTDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SPCSTDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCZSLXData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCZSLXDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SPCZSLXDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCJBWCData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wo" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SPCJBWCDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SPCJBWCDataResult" type="s:boolean" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertMonthData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="month" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="InsertMonthDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="InsertMonthDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="SPCDataCollectionSoapIn">
+    <wsdl:part name="parameters" element="tns:SPCDataCollection" />
+  </wsdl:message>
+  <wsdl:message name="SPCDataCollectionSoapOut">
+    <wsdl:part name="parameters" element="tns:SPCDataCollectionResponse" />
+  </wsdl:message>
+  <wsdl:message name="SPCZSZHDataSoapIn">
+    <wsdl:part name="parameters" element="tns:SPCZSZHData" />
+  </wsdl:message>
+  <wsdl:message name="SPCZSZHDataSoapOut">
+    <wsdl:part name="parameters" element="tns:SPCZSZHDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="SPCZSGCDataSoapIn">
+    <wsdl:part name="parameters" element="tns:SPCZSGCData" />
+  </wsdl:message>
+  <wsdl:message name="SPCZSGCDataSoapOut">
+    <wsdl:part name="parameters" element="tns:SPCZSGCDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="SPCJBGCDataSoapIn">
+    <wsdl:part name="parameters" element="tns:SPCJBGCData" />
+  </wsdl:message>
+  <wsdl:message name="SPCJBGCDataSoapOut">
+    <wsdl:part name="parameters" element="tns:SPCJBGCDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="SPCLBCPDataSoapIn">
+    <wsdl:part name="parameters" element="tns:SPCLBCPData" />
+  </wsdl:message>
+  <wsdl:message name="SPCLBCPDataSoapOut">
+    <wsdl:part name="parameters" element="tns:SPCLBCPDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="SPCCPJYDataSoapIn">
+    <wsdl:part name="parameters" element="tns:SPCCPJYData" />
+  </wsdl:message>
+  <wsdl:message name="SPCCPJYDataSoapOut">
+    <wsdl:part name="parameters" element="tns:SPCCPJYDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="SPCDXFXDatSoapIn">
+    <wsdl:part name="parameters" element="tns:SPCDXFXDat" />
+  </wsdl:message>
+  <wsdl:message name="SPCDXFXDatSoapOut">
+    <wsdl:part name="parameters" element="tns:SPCDXFXDatResponse" />
+  </wsdl:message>
+  <wsdl:message name="SPCYSSJDataSoapIn">
+    <wsdl:part name="parameters" element="tns:SPCYSSJData" />
+  </wsdl:message>
+  <wsdl:message name="SPCYSSJDataSoapOut">
+    <wsdl:part name="parameters" element="tns:SPCYSSJDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="SPCSTDataSoapIn">
+    <wsdl:part name="parameters" element="tns:SPCSTData" />
+  </wsdl:message>
+  <wsdl:message name="SPCSTDataSoapOut">
+    <wsdl:part name="parameters" element="tns:SPCSTDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="SPCZSLXDataSoapIn">
+    <wsdl:part name="parameters" element="tns:SPCZSLXData" />
+  </wsdl:message>
+  <wsdl:message name="SPCZSLXDataSoapOut">
+    <wsdl:part name="parameters" element="tns:SPCZSLXDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="SPCJBWCDataSoapIn">
+    <wsdl:part name="parameters" element="tns:SPCJBWCData" />
+  </wsdl:message>
+  <wsdl:message name="SPCJBWCDataSoapOut">
+    <wsdl:part name="parameters" element="tns:SPCJBWCDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="InsertMonthDataSoapIn">
+    <wsdl:part name="parameters" element="tns:InsertMonthData" />
+  </wsdl:message>
+  <wsdl:message name="InsertMonthDataSoapOut">
+    <wsdl:part name="parameters" element="tns:InsertMonthDataResponse" />
+  </wsdl:message>
+  <wsdl:portType name="SPCDataCollectionTestSoap">
+    <wsdl:operation name="SPCDataCollection">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">SPC在线数据收集</wsdl:documentation>
+      <wsdl:input message="tns:SPCDataCollectionSoapIn" />
+      <wsdl:output message="tns:SPCDataCollectionSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SPCZSZHData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">SPC制丝综合检验数据收集</wsdl:documentation>
+      <wsdl:input message="tns:SPCZSZHDataSoapIn" />
+      <wsdl:output message="tns:SPCZSZHDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SPCZSGCData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">SPC制丝过程检验数据收集</wsdl:documentation>
+      <wsdl:input message="tns:SPCZSGCDataSoapIn" />
+      <wsdl:output message="tns:SPCZSGCDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SPCJBGCData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">SPC卷包过程检验数据收集</wsdl:documentation>
+      <wsdl:input message="tns:SPCJBGCDataSoapIn" />
+      <wsdl:output message="tns:SPCJBGCDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SPCLBCPData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">SPC嘴棒成型检验数据收集</wsdl:documentation>
+      <wsdl:input message="tns:SPCLBCPDataSoapIn" />
+      <wsdl:output message="tns:SPCLBCPDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SPCCPJYData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">SPC成品检验数据收集</wsdl:documentation>
+      <wsdl:input message="tns:SPCCPJYDataSoapIn" />
+      <wsdl:output message="tns:SPCCPJYDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SPCDXFXDat">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">单项分析数据收集</wsdl:documentation>
+      <wsdl:input message="tns:SPCDXFXDatSoapIn" />
+      <wsdl:output message="tns:SPCDXFXDatSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SPCYSSJData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取原始数据</wsdl:documentation>
+      <wsdl:input message="tns:SPCYSSJDataSoapIn" />
+      <wsdl:output message="tns:SPCYSSJDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SPCSTData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">获取SPC视图数据</wsdl:documentation>
+      <wsdl:input message="tns:SPCSTDataSoapIn" />
+      <wsdl:output message="tns:SPCSTDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SPCZSLXData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">SPC制丝离线数据采集</wsdl:documentation>
+      <wsdl:input message="tns:SPCZSLXDataSoapIn" />
+      <wsdl:output message="tns:SPCZSLXDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SPCJBWCData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">SPC卷包过程检验物测数据采集</wsdl:documentation>
+      <wsdl:input message="tns:SPCJBWCDataSoapIn" />
+      <wsdl:output message="tns:SPCJBWCDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="InsertMonthData">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">插入某月份数据</wsdl:documentation>
+      <wsdl:input message="tns:InsertMonthDataSoapIn" />
+      <wsdl:output message="tns:InsertMonthDataSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SPCDataCollectionTestSoap" type="tns:SPCDataCollectionTestSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SPCDataCollection">
+      <soap:operation soapAction="http://tempuri.org/SPCDataCollection" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCZSZHData">
+      <soap:operation soapAction="http://tempuri.org/SPCZSZHData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCZSGCData">
+      <soap:operation soapAction="http://tempuri.org/SPCZSGCData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCJBGCData">
+      <soap:operation soapAction="http://tempuri.org/SPCJBGCData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCLBCPData">
+      <soap:operation soapAction="http://tempuri.org/SPCLBCPData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCCPJYData">
+      <soap:operation soapAction="http://tempuri.org/SPCCPJYData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCDXFXDat">
+      <soap:operation soapAction="http://tempuri.org/SPCDXFXDat" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCYSSJData">
+      <soap:operation soapAction="http://tempuri.org/SPCYSSJData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCSTData">
+      <soap:operation soapAction="http://tempuri.org/SPCSTData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCZSLXData">
+      <soap:operation soapAction="http://tempuri.org/SPCZSLXData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCJBWCData">
+      <soap:operation soapAction="http://tempuri.org/SPCJBWCData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertMonthData">
+      <soap:operation soapAction="http://tempuri.org/InsertMonthData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="SPCDataCollectionTestSoap12" type="tns:SPCDataCollectionTestSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="SPCDataCollection">
+      <soap12:operation soapAction="http://tempuri.org/SPCDataCollection" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCZSZHData">
+      <soap12:operation soapAction="http://tempuri.org/SPCZSZHData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCZSGCData">
+      <soap12:operation soapAction="http://tempuri.org/SPCZSGCData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCJBGCData">
+      <soap12:operation soapAction="http://tempuri.org/SPCJBGCData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCLBCPData">
+      <soap12:operation soapAction="http://tempuri.org/SPCLBCPData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCCPJYData">
+      <soap12:operation soapAction="http://tempuri.org/SPCCPJYData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCDXFXDat">
+      <soap12:operation soapAction="http://tempuri.org/SPCDXFXDat" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCYSSJData">
+      <soap12:operation soapAction="http://tempuri.org/SPCYSSJData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCSTData">
+      <soap12:operation soapAction="http://tempuri.org/SPCSTData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCZSLXData">
+      <soap12:operation soapAction="http://tempuri.org/SPCZSLXData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SPCJBWCData">
+      <soap12:operation soapAction="http://tempuri.org/SPCJBWCData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="InsertMonthData">
+      <soap12:operation soapAction="http://tempuri.org/InsertMonthData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SPCDataCollectionTest">
+    <wsdl:port name="SPCDataCollectionTestSoap" binding="tns:SPCDataCollectionTestSoap">
+      <soap:address location="http://10.164.54.82:8033/SPCDataCollectionTest.asmx" />
+    </wsdl:port>
+    <wsdl:port name="SPCDataCollectionTestSoap12" binding="tns:SPCDataCollectionTestSoap12">
+      <soap12:address location="http://10.164.54.82:8033/SPCDataCollectionTest.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

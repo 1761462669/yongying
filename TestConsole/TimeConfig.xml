@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<dataset>
+  <data>
+    <mark>spc</mark><!--调用SPC插入生产信息服务-->
+    <time>00:00:05</time>
+  </data>
+  <data>
+    <mark>PackProduceAmount</mark>
+    <!--调用卷包产量上报服务-->
+    <time>18:00:00</time>
+  </data>
+</dataset>

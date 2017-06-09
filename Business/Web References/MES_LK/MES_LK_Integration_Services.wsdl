@@ -1,0 +1,699 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://tempuri.org/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://tempuri.org/">
+      <s:element name="Receive_LKData">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Receive_LKDataResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Receive_LKDataResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="transgetCPKC">
+        <s:complexType />
+      </s:element>
+      <s:element name="transgetCPKCResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="transgetCPKCResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="transSTOCKOrder">
+        <s:complexType />
+      </s:element>
+      <s:element name="transSTOCKOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="transSTOCKOrderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="transYLTLOrder">
+        <s:complexType />
+      </s:element>
+      <s:element name="transYLTLOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="transYLTLOrderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="transFLXHOrder">
+        <s:complexType />
+      </s:element>
+      <s:element name="transFLXHOrderResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="transFLXHOrderResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="Mes_WL_GDXX">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="orderList" type="tns:ArrayOfString" />
+            <s:element minOccurs="0" maxOccurs="1" name="operaterID" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfString">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="string" nillable="true" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="Mes_WL_GDXXResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="Mes_WL_GDXXResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PackWorkOrderStart_End">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="wo" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="state" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PackWorkOrderStart_EndResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PackWorkOrderStart_EndResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SCZX_MES_OutPut">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="xml" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SCZX_MES_OutPutResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SCZX_MES_OutPutResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PackProduceAmount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="date" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="PackProduceAmountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="PackProduceAmountResult" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="string" nillable="true" type="s:string" />
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="Receive_LKDataSoapIn">
+    <wsdl:part name="parameters" element="tns:Receive_LKData" />
+  </wsdl:message>
+  <wsdl:message name="Receive_LKDataSoapOut">
+    <wsdl:part name="parameters" element="tns:Receive_LKDataResponse" />
+  </wsdl:message>
+  <wsdl:message name="transgetCPKCSoapIn">
+    <wsdl:part name="parameters" element="tns:transgetCPKC" />
+  </wsdl:message>
+  <wsdl:message name="transgetCPKCSoapOut">
+    <wsdl:part name="parameters" element="tns:transgetCPKCResponse" />
+  </wsdl:message>
+  <wsdl:message name="transSTOCKOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:transSTOCKOrder" />
+  </wsdl:message>
+  <wsdl:message name="transSTOCKOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:transSTOCKOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="transYLTLOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:transYLTLOrder" />
+  </wsdl:message>
+  <wsdl:message name="transYLTLOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:transYLTLOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="transFLXHOrderSoapIn">
+    <wsdl:part name="parameters" element="tns:transFLXHOrder" />
+  </wsdl:message>
+  <wsdl:message name="transFLXHOrderSoapOut">
+    <wsdl:part name="parameters" element="tns:transFLXHOrderResponse" />
+  </wsdl:message>
+  <wsdl:message name="Mes_WL_GDXXSoapIn">
+    <wsdl:part name="parameters" element="tns:Mes_WL_GDXX" />
+  </wsdl:message>
+  <wsdl:message name="Mes_WL_GDXXSoapOut">
+    <wsdl:part name="parameters" element="tns:Mes_WL_GDXXResponse" />
+  </wsdl:message>
+  <wsdl:message name="PackWorkOrderStart_EndSoapIn">
+    <wsdl:part name="parameters" element="tns:PackWorkOrderStart_End" />
+  </wsdl:message>
+  <wsdl:message name="PackWorkOrderStart_EndSoapOut">
+    <wsdl:part name="parameters" element="tns:PackWorkOrderStart_EndResponse" />
+  </wsdl:message>
+  <wsdl:message name="SCZX_MES_OutPutSoapIn">
+    <wsdl:part name="parameters" element="tns:SCZX_MES_OutPut" />
+  </wsdl:message>
+  <wsdl:message name="SCZX_MES_OutPutSoapOut">
+    <wsdl:part name="parameters" element="tns:SCZX_MES_OutPutResponse" />
+  </wsdl:message>
+  <wsdl:message name="PackProduceAmountSoapIn">
+    <wsdl:part name="parameters" element="tns:PackProduceAmount" />
+  </wsdl:message>
+  <wsdl:message name="PackProduceAmountSoapOut">
+    <wsdl:part name="parameters" element="tns:PackProduceAmountResponse" />
+  </wsdl:message>
+  <wsdl:message name="Receive_LKDataHttpGetIn">
+    <wsdl:part name="xml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Receive_LKDataHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="transgetCPKCHttpGetIn" />
+  <wsdl:message name="transgetCPKCHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="transSTOCKOrderHttpGetIn" />
+  <wsdl:message name="transSTOCKOrderHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="transYLTLOrderHttpGetIn" />
+  <wsdl:message name="transYLTLOrderHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="transFLXHOrderHttpGetIn" />
+  <wsdl:message name="transFLXHOrderHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="PackWorkOrderStart_EndHttpGetIn">
+    <wsdl:part name="wo" type="s:string" />
+    <wsdl:part name="state" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PackWorkOrderStart_EndHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SCZX_MES_OutPutHttpGetIn">
+    <wsdl:part name="xml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SCZX_MES_OutPutHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="PackProduceAmountHttpGetIn">
+    <wsdl:part name="date" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PackProduceAmountHttpGetOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="Receive_LKDataHttpPostIn">
+    <wsdl:part name="xml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="Receive_LKDataHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="transgetCPKCHttpPostIn" />
+  <wsdl:message name="transgetCPKCHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="transSTOCKOrderHttpPostIn" />
+  <wsdl:message name="transSTOCKOrderHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="transYLTLOrderHttpPostIn" />
+  <wsdl:message name="transYLTLOrderHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="transFLXHOrderHttpPostIn" />
+  <wsdl:message name="transFLXHOrderHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="PackWorkOrderStart_EndHttpPostIn">
+    <wsdl:part name="wo" type="s:string" />
+    <wsdl:part name="state" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PackWorkOrderStart_EndHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="SCZX_MES_OutPutHttpPostIn">
+    <wsdl:part name="xml" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="SCZX_MES_OutPutHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:message name="PackProduceAmountHttpPostIn">
+    <wsdl:part name="date" type="s:string" />
+  </wsdl:message>
+  <wsdl:message name="PackProduceAmountHttpPostOut">
+    <wsdl:part name="Body" element="tns:string" />
+  </wsdl:message>
+  <wsdl:portType name="MES_LK_Integration_ServicesSoap">
+    <wsdl:operation name="Receive_LKData">
+      <wsdl:input message="tns:Receive_LKDataSoapIn" />
+      <wsdl:output message="tns:Receive_LKDataSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="transgetCPKC">
+      <wsdl:input message="tns:transgetCPKCSoapIn" />
+      <wsdl:output message="tns:transgetCPKCSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="transSTOCKOrder">
+      <wsdl:input message="tns:transSTOCKOrderSoapIn" />
+      <wsdl:output message="tns:transSTOCKOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="transYLTLOrder">
+      <wsdl:input message="tns:transYLTLOrderSoapIn" />
+      <wsdl:output message="tns:transYLTLOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="transFLXHOrder">
+      <wsdl:input message="tns:transFLXHOrderSoapIn" />
+      <wsdl:output message="tns:transFLXHOrderSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="Mes_WL_GDXX">
+      <wsdl:input message="tns:Mes_WL_GDXXSoapIn" />
+      <wsdl:output message="tns:Mes_WL_GDXXSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PackWorkOrderStart_End">
+      <wsdl:input message="tns:PackWorkOrderStart_EndSoapIn" />
+      <wsdl:output message="tns:PackWorkOrderStart_EndSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SCZX_MES_OutPut">
+      <wsdl:input message="tns:SCZX_MES_OutPutSoapIn" />
+      <wsdl:output message="tns:SCZX_MES_OutPutSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PackProduceAmount">
+      <wsdl:input message="tns:PackProduceAmountSoapIn" />
+      <wsdl:output message="tns:PackProduceAmountSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="MES_LK_Integration_ServicesHttpGet">
+    <wsdl:operation name="Receive_LKData">
+      <wsdl:input message="tns:Receive_LKDataHttpGetIn" />
+      <wsdl:output message="tns:Receive_LKDataHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="transgetCPKC">
+      <wsdl:input message="tns:transgetCPKCHttpGetIn" />
+      <wsdl:output message="tns:transgetCPKCHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="transSTOCKOrder">
+      <wsdl:input message="tns:transSTOCKOrderHttpGetIn" />
+      <wsdl:output message="tns:transSTOCKOrderHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="transYLTLOrder">
+      <wsdl:input message="tns:transYLTLOrderHttpGetIn" />
+      <wsdl:output message="tns:transYLTLOrderHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="transFLXHOrder">
+      <wsdl:input message="tns:transFLXHOrderHttpGetIn" />
+      <wsdl:output message="tns:transFLXHOrderHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PackWorkOrderStart_End">
+      <wsdl:input message="tns:PackWorkOrderStart_EndHttpGetIn" />
+      <wsdl:output message="tns:PackWorkOrderStart_EndHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SCZX_MES_OutPut">
+      <wsdl:input message="tns:SCZX_MES_OutPutHttpGetIn" />
+      <wsdl:output message="tns:SCZX_MES_OutPutHttpGetOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PackProduceAmount">
+      <wsdl:input message="tns:PackProduceAmountHttpGetIn" />
+      <wsdl:output message="tns:PackProduceAmountHttpGetOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:portType name="MES_LK_Integration_ServicesHttpPost">
+    <wsdl:operation name="Receive_LKData">
+      <wsdl:input message="tns:Receive_LKDataHttpPostIn" />
+      <wsdl:output message="tns:Receive_LKDataHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="transgetCPKC">
+      <wsdl:input message="tns:transgetCPKCHttpPostIn" />
+      <wsdl:output message="tns:transgetCPKCHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="transSTOCKOrder">
+      <wsdl:input message="tns:transSTOCKOrderHttpPostIn" />
+      <wsdl:output message="tns:transSTOCKOrderHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="transYLTLOrder">
+      <wsdl:input message="tns:transYLTLOrderHttpPostIn" />
+      <wsdl:output message="tns:transYLTLOrderHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="transFLXHOrder">
+      <wsdl:input message="tns:transFLXHOrderHttpPostIn" />
+      <wsdl:output message="tns:transFLXHOrderHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PackWorkOrderStart_End">
+      <wsdl:input message="tns:PackWorkOrderStart_EndHttpPostIn" />
+      <wsdl:output message="tns:PackWorkOrderStart_EndHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SCZX_MES_OutPut">
+      <wsdl:input message="tns:SCZX_MES_OutPutHttpPostIn" />
+      <wsdl:output message="tns:SCZX_MES_OutPutHttpPostOut" />
+    </wsdl:operation>
+    <wsdl:operation name="PackProduceAmount">
+      <wsdl:input message="tns:PackProduceAmountHttpPostIn" />
+      <wsdl:output message="tns:PackProduceAmountHttpPostOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MES_LK_Integration_ServicesSoap" type="tns:MES_LK_Integration_ServicesSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Receive_LKData">
+      <soap:operation soapAction="http://tempuri.org/Receive_LKData" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transgetCPKC">
+      <soap:operation soapAction="http://tempuri.org/transgetCPKC" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transSTOCKOrder">
+      <soap:operation soapAction="http://tempuri.org/transSTOCKOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transYLTLOrder">
+      <soap:operation soapAction="http://tempuri.org/transYLTLOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transFLXHOrder">
+      <soap:operation soapAction="http://tempuri.org/transFLXHOrder" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mes_WL_GDXX">
+      <soap:operation soapAction="http://tempuri.org/Mes_WL_GDXX" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackWorkOrderStart_End">
+      <soap:operation soapAction="http://tempuri.org/PackWorkOrderStart_End" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SCZX_MES_OutPut">
+      <soap:operation soapAction="http://tempuri.org/SCZX_MES_OutPut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackProduceAmount">
+      <soap:operation soapAction="http://tempuri.org/PackProduceAmount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MES_LK_Integration_ServicesSoap12" type="tns:MES_LK_Integration_ServicesSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="Receive_LKData">
+      <soap12:operation soapAction="http://tempuri.org/Receive_LKData" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transgetCPKC">
+      <soap12:operation soapAction="http://tempuri.org/transgetCPKC" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transSTOCKOrder">
+      <soap12:operation soapAction="http://tempuri.org/transSTOCKOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transYLTLOrder">
+      <soap12:operation soapAction="http://tempuri.org/transYLTLOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transFLXHOrder">
+      <soap12:operation soapAction="http://tempuri.org/transFLXHOrder" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Mes_WL_GDXX">
+      <soap12:operation soapAction="http://tempuri.org/Mes_WL_GDXX" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackWorkOrderStart_End">
+      <soap12:operation soapAction="http://tempuri.org/PackWorkOrderStart_End" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SCZX_MES_OutPut">
+      <soap12:operation soapAction="http://tempuri.org/SCZX_MES_OutPut" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackProduceAmount">
+      <soap12:operation soapAction="http://tempuri.org/PackProduceAmount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MES_LK_Integration_ServicesHttpGet" type="tns:MES_LK_Integration_ServicesHttpGet">
+    <http:binding verb="GET" />
+    <wsdl:operation name="Receive_LKData">
+      <http:operation location="/Receive_LKData" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transgetCPKC">
+      <http:operation location="/transgetCPKC" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transSTOCKOrder">
+      <http:operation location="/transSTOCKOrder" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transYLTLOrder">
+      <http:operation location="/transYLTLOrder" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transFLXHOrder">
+      <http:operation location="/transFLXHOrder" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackWorkOrderStart_End">
+      <http:operation location="/PackWorkOrderStart_End" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SCZX_MES_OutPut">
+      <http:operation location="/SCZX_MES_OutPut" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackProduceAmount">
+      <http:operation location="/PackProduceAmount" />
+      <wsdl:input>
+        <http:urlEncoded />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="MES_LK_Integration_ServicesHttpPost" type="tns:MES_LK_Integration_ServicesHttpPost">
+    <http:binding verb="POST" />
+    <wsdl:operation name="Receive_LKData">
+      <http:operation location="/Receive_LKData" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transgetCPKC">
+      <http:operation location="/transgetCPKC" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transSTOCKOrder">
+      <http:operation location="/transSTOCKOrder" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transYLTLOrder">
+      <http:operation location="/transYLTLOrder" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="transFLXHOrder">
+      <http:operation location="/transFLXHOrder" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackWorkOrderStart_End">
+      <http:operation location="/PackWorkOrderStart_End" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SCZX_MES_OutPut">
+      <http:operation location="/SCZX_MES_OutPut" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="PackProduceAmount">
+      <http:operation location="/PackProduceAmount" />
+      <wsdl:input>
+        <mime:content type="application/x-www-form-urlencoded" />
+      </wsdl:input>
+      <wsdl:output>
+        <mime:mimeXml part="Body" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="MES_LK_Integration_Services">
+    <wsdl:port name="MES_LK_Integration_ServicesSoap" binding="tns:MES_LK_Integration_ServicesSoap">
+      <soap:address location="http://10.164.54.82:8081/MES_LK_Integration_Services.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MES_LK_Integration_ServicesSoap12" binding="tns:MES_LK_Integration_ServicesSoap12">
+      <soap12:address location="http://10.164.54.82:8081/MES_LK_Integration_Services.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MES_LK_Integration_ServicesHttpGet" binding="tns:MES_LK_Integration_ServicesHttpGet">
+      <http:address location="http://10.164.54.82:8081/MES_LK_Integration_Services.asmx" />
+    </wsdl:port>
+    <wsdl:port name="MES_LK_Integration_ServicesHttpPost" binding="tns:MES_LK_Integration_ServicesHttpPost">
+      <http:address location="http://10.164.54.82:8081/MES_LK_Integration_Services.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
