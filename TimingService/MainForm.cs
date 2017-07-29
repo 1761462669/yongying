@@ -56,7 +56,18 @@ namespace TimingService
                     }
                 }
             }
-
+            //C²数据编号存储
+                _CallService cs1 = new _CallService();
+                String message1 = "";
+                try
+                {
+                    message1 = cs1.GetC2RowNum();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message + "  " + message1);
+                }
+            
         }
 
         private void bt_stop_Click(object sender, EventArgs e)

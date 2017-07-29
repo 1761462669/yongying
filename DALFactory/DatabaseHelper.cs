@@ -81,6 +81,10 @@ namespace QcAnalysis
                     strConnectionString = ConfigurationManager.ConnectionStrings["InSqlConnectionstring"].ConnectionString;
                     objFactory = SqlClientFactory.Instance;
                     break;
+                case ConnectionType.C2Sql:
+                    strConnectionString = ConfigurationManager.ConnectionStrings["C2SqlConnectionstring"].ConnectionString;
+                    objFactory = SqlClientFactory.Instance;
+                    break;
                 case ConnectionType.Oracle:
                     strConnectionString = ConfigurationManager.ConnectionStrings["OracleConnectionString"].ConnectionString;
                     objFactory = OracleClientFactory.Instance;
@@ -446,7 +450,12 @@ namespace QcAnalysis
             objConnection.Dispose();
             objCommand.Dispose();
         }
-
+        public void Close()
+        {
+            objConnection.Close();
+            objConnection.Dispose();
+            objCommand.Dispose();
+        }
     }
 
     public enum Providers
@@ -455,7 +464,8 @@ namespace QcAnalysis
     }
     public enum ConnectionType
     {
-        Sql, InSql, Oracle, SSql
+        Sql, InSql, Oracle, SSql,
+        C2Sql
     }
 
     public enum ConnectionState

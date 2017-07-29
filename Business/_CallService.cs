@@ -13,6 +13,8 @@ namespace Business
     /// </summary>
     public class _CallService
     {
+        public static SqlDAL sqlDAL = new SqlDAL();
+
         public String GetService(String mark)
         {
             String message = "";
@@ -51,7 +53,6 @@ namespace Business
         private static String CallSPC()
         {
             String message = "";
-            SqlDAL sqlDAL = new SqlDAL();
             //sqlDAL.GetStartWOInfo();
             DataSet ds = sqlDAL.GetStartWO();
             foreach (DataRow dr in ds.Tables[0].Rows)
@@ -62,5 +63,15 @@ namespace Business
             }
             return message;
         }
+
+        public string GetC2RowNum()
+        {
+
+            string msg = sqlDAL.GetC2RowNum();
+
+
+            return msg;
+        }
+
     }
 }
