@@ -33,12 +33,13 @@
             this.bt_stop = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // bt_start
             // 
             this.bt_start.Location = new System.Drawing.Point(23, 66);
-            this.bt_start.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bt_start.Margin = new System.Windows.Forms.Padding(2);
             this.bt_start.Name = "bt_start";
             this.bt_start.Size = new System.Drawing.Size(63, 26);
             this.bt_start.TabIndex = 0;
@@ -49,7 +50,7 @@
             // bt_stop
             // 
             this.bt_stop.Location = new System.Drawing.Point(200, 66);
-            this.bt_stop.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.bt_stop.Margin = new System.Windows.Forms.Padding(2);
             this.bt_stop.Name = "bt_stop";
             this.bt_stop.Size = new System.Drawing.Size(63, 26);
             this.bt_stop.TabIndex = 1;
@@ -74,6 +75,10 @@
             // 
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // timer2
+            // 
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -82,7 +87,7 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.bt_stop);
             this.Controls.Add(this.bt_start);
-            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "MainForm";
             this.Text = "定时服务";
             this.Load += new System.EventHandler(this.MainForm_Load);
@@ -97,6 +102,7 @@
         private System.Windows.Forms.Button bt_stop;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer timer2;
     }
 }
 

@@ -14,6 +14,7 @@ namespace Business
     public class _CallService
     {
         public static SqlDAL sqlDAL = new SqlDAL();
+        String message = "";
 
         public String GetService(String mark)
         {
@@ -73,5 +74,11 @@ namespace Business
             return msg;
         }
 
+
+        public string C2DataStatistics()
+        {
+            message = sqlDAL.C2DataStatistics();
+            return message;
+        }
     }
 }

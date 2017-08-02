@@ -19,6 +19,8 @@ namespace TimingService
         }
         List<GetCallTarget> timeConfig = new List<GetCallTarget>();
         DateTime? time = null;
+        _CallService cs = new _CallService();
+        String message = "";
         private void MainForm_Load(object sender, EventArgs e)
         {
             StartService();
@@ -41,8 +43,7 @@ namespace TimingService
                     int split = DateTime.Now.Second - time.Value.Second;
                     if (split >= 0 && split < 5)
                     {
-                        _CallService cs = new _CallService();
-                        String message = "";
+                        
                         try
                         {
                             message= cs.GetService(mark);
@@ -57,15 +58,13 @@ namespace TimingService
                 }
             }
             //C²数据编号存储
-                _CallService cs1 = new _CallService();
-                String message1 = "";
                 try
                 {
-                    message1 = cs1.GetC2RowNum();
+                    message = cs.GetC2RowNum();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message + "  " + message1);
+                    MessageBox.Show(ex.Message + "  " + message);
                 }
             
         }
@@ -95,12 +94,30 @@ namespace TimingService
             timer1.Interval = 5000;
             this.Text = "定时服务，运行中";
             timer1.Start();
+            timer2.Interval = 600000;
+            timer2.Start();
         }
         private void StopService()
         {
             this.Text = "定时服务，已停止";
             //this.textBox1.Text = "";
             timer1.Stop();
+            timer2.Stop();
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            String message = "";
+            try
+            {
+                message = cs.C2DataStatistics();
+                //此处替换需要调用的代码
+                //MessageBox.Show("定时执行调用了："+mark);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message + "  " + message);
+            }
         }
     }
 }

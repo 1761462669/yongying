@@ -39,6 +39,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MathUtils.cs" />
     <Compile Include="SqlDAL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -46,6 +47,10 @@
     <ProjectReference Include="..\DALFactory\DALFactory.csproj">
       <Project>{1fee5c15-7ed5-4b27-abb2-2da309828b1f}</Project>
       <Name>DALFactory</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Entity\Entity.csproj">
+      <Project>{15accf64-9e0e-471c-a44f-c5ef3b44c8e3}</Project>
+      <Name>Entity</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

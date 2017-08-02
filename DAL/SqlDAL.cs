@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using QcAnalysis;
 using System.Data;
+using Entity;
 
 namespace DAL
 {
@@ -72,7 +73,7 @@ namespace DAL
         {
             String sql = String.Format(@"SELECT MachineID,GMT_Date_Time,BATCH_BRAND,rowguid FROM DATA 
             WHERE GMT_DATE_TIME>'{0}'  AND MACHINEID ='{1}' ORDER BY GMT_Date_Time", dt, machine);
-            DataSet ds = dsC2Sql.ExecuteDataSet(sql, QcAnalysis.ConnectionState.KeepOpen);
+            DataSet ds = dsC2Sql.ExecuteDataSet(sql);
             return ds;
         }
 
@@ -115,7 +116,6 @@ namespace DAL
             }
             catch (Exception ex)
             {
-
                 message = ex.Message;
             }
             return message;
@@ -197,6 +197,115 @@ namespace DAL
                 LogHelper.SaveMsgToFile(savePath, fileName, fileMsg);
             }
             return message;
+        }
+
+        public string C2DataStatistics()
+        {
+            String message = "";
+            LogStr.Clear();
+
+            DateTime startTime;
+            DateTime endTime;
+            String wo;
+            String machine;
+            int orderNo;
+            int rowNum = 1;
+            String rowGuid = "";
+            DataSet dsC2Data = GetC2DataStatTime();
+
+            if (dsC2Data.Tables[0].Rows.Count > 0 || dsC2Data.Tables[1].Rows.Count > 0 || dsC2Data.Tables[2].Rows.Count > 0)
+            {
+                for (int i = 0; i < dsC2Data.Tables.Count; i++)
+                {
+                    startTime = Convert.ToDateTime(dsC2Data.Tables[i].Rows[0]["CHECKTIME"]);
+                    wo = dsC2Data.Tables[i].Rows[0]["WO"].ToString();
+                    machine = dsC2Data.Tables[i].Rows[0]["MACHINE"].ToString();
+                    orderNo = Convert.ToInt32(dsC2Data.Tables[i].Rows[0]["ORDERNUM"]);
+                    DataSet dsEndTime = GetC2DataEndTime(startTime, machine);
+                    endTime = Convert.ToDateTime(dsEndTime.Tables[0].Rows[0]["ROWTIME"]);
+                    DataSet ds = GetC2DataFromMes(startTime, endTime, machine);
+
+                    if (ds.Tables[0].Rows.Count > 0)
+                    {
+                        IList<CData> list = ConvetToObjList(ds.Tables[0]);
+                        CDataResult res = new CDataResult();
+                        MathUtils.GetAvg(list, res);
+
+                        //
+                        //dsSql.BeginTransaction();
+                        //foreach (DataRow dr in ds.Tables[0].Rows)
+                        //{
+                        //    int count = 1;
+                        //    decimal data = 0;
+                        //    decimal avg;
+                        //    decimal stdv;
+                        //    decimal cpk;
+
+                        //    if (String.IsNullOrEmpty( dr["PD"].ToString()))
+                        //    {
+                        //        data += Convert.ToDecimal(dr["PD"]);
+                        //    }
+                        //    wo = dr["BATCH_BRAND"].ToString();
+                        //    rowGuid = dr["rowguid"].ToString();
+                        //    message += SaveC2Data(endTime, machine, rowNum);
+                        //    rowNum++;
+
+                        //}
+                        //message += SaveC2TimeFlag(endTime, wo, machine);
+                        //dsSql.CommitTransaction();
+                    }
+
+                }
+            }
+            if (!String.IsNullOrEmpty(message))
+            {
+                string tempStr = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss    ") + message + "\r\n";
+                LogStr.Append(tempStr);
+                String savePath = "D:\\GetC2RowNum_Log";
+                String fileName = DateTime.Now.ToString("yyyy-MM-dd") + ".log";
+                String fileMsg = LogStr.ToString() + "\r\n";
+                LogHelper.SaveMsgToFile(savePath, fileName, fileMsg);
+            }
+            return message;
+        }
+
+        private IList<CData> ConvetToObjList(DataTable dataTable)
+        {
+            throw new NotImplementedException();
+        }
+
+        private DataSet GetC2DataFromMes(DateTime startTime, DateTime endTime, string machine)
+        {
+            String sql = String.Format(@"SELECT  * FROM OfflineDataToSpc
+            WHERE testdate>DATEADD(HH, 8, '{0}') AND testdate<=DATEADD(HH, 8, '{1}') AND EQU_CTRL='{2}'", startTime, endTime, machine);
+            DataSet ds = dsSql.ExecuteDataSet(sql, QcAnalysis.ConnectionState.KeepOpen);
+            return ds;
+        }
+
+        public DataSet GetC2DataEndTime(DateTime timeFlag, string machine)
+        {
+            String sql = String.Format(@"SELECT TOP 1 ROWTIME FROM SPC.ROWNUMFLAG
+            WHERE ROWTIME>'{0}' AND MACHINE='{1}' AND ROWNUM=20
+            ORDER BY ROWTIME", timeFlag, machine);
+            DataSet ds = dsSql.ExecuteDataSet(sql, QcAnalysis.ConnectionState.KeepOpen);
+            return ds;
+        }
+
+        public DataSet GetC2DataStatTime()
+        {
+            String sql = @"SELECT TOP 1 CHECKTIME,WO,MACHINE,ORDERNUM FROM SPC.C2RESULTDATA 
+            WHERE MACHINE='C2-23051'
+            ORDER BY CHECKTIME DESC
+
+            SELECT TOP 1 CHECKTIME,WO,MACHINE,ORDERNUM FROM SPC.C2RESULTDATA 
+            WHERE MACHINE='C2-23052'
+            ORDER BY CHECKTIME DESC
+
+            SELECT TOP 1 CHECKTIME,WO,MACHINE,ORDERNUM FROM SPC.C2RESULTDATA 
+            WHERE MACHINE='C2-23059'
+            ORDER BY CHECKTIME DESC";
+            DataSet ds = dsSql.ExecuteDataSet(sql, QcAnalysis.ConnectionState.KeepOpen);
+            return ds;
         }
     }
 }
