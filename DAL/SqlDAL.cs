@@ -14,6 +14,8 @@ namespace DAL
         DatabaseHelper dsInSql = new DatabaseHelper(ConnectionType.InSql);
         public DatabaseHelper dsC2Sql = new DatabaseHelper(ConnectionType.C2Sql);
         DatabaseHelper dsSql = new DatabaseHelper(ConnectionType.Sql);
+        DatabaseHelper dsSSQL = new DatabaseHelper(ConnectionType.SSql);
+        MathUtils mu = new MathUtils();
 
         private StringBuilder LogStr = new StringBuilder();
 
@@ -132,7 +134,10 @@ namespace DAL
             }
             return rowNum;
         }
-
+        /// <summary>
+        /// C2样本编号
+        /// </summary>
+        /// <returns></returns>
         public string GetC2RowNum()
         {
             String message = "";
@@ -198,10 +203,13 @@ namespace DAL
             }
             return message;
         }
-
+        /// <summary>
+        /// C2样本数据计算
+        /// </summary>
+        /// <returns></returns>
         public string C2DataStatistics()
         {
-            String message = "";
+            String message;
             LogStr.Clear();
 
             DateTime startTime;
@@ -209,8 +217,8 @@ namespace DAL
             String wo;
             String machine;
             int orderNo;
-            int rowNum = 1;
-            String rowGuid = "";
+            String mat_Ctrl ;
+            String matID ;
             DataSet dsC2Data = GetC2DataStatTime();
 
             if (dsC2Data.Tables[0].Rows.Count > 0 || dsC2Data.Tables[1].Rows.Count > 0 || dsC2Data.Tables[2].Rows.Count > 0)
@@ -229,8 +237,27 @@ namespace DAL
                     {
                         IList<CData> list = ConvetToObjList(ds.Tables[0]);
                         CDataResult res = new CDataResult();
-                        MathUtils.GetAvg(list, res);
+                       mu.GetStatistics(list, res);
+                       mat_Ctrl = list[list.Count - 1].mat_Ctrl;
+                       startTime = list[list.Count + 1].testdate;
+                       //取标准 计算CPK
+                        DataSet dsT = GetTestID(machine);
+                        matID = GetMatID(mat_Ctrl);
+                        switch (machine)
+                        {
+                            case "":
+                                break;
+                            case "":
+                                break;
+                            case "":
+                                break;
+                            default:
+                                break;
+                        }
+                        GetCPKAndStandard(list,matID,dsT);
 
+                        res.WG_CPK = Convert.ToDecimal(ComputCPK(wgData));
+                        SaveC2StatisticsData(list, res);
                         //
                         //dsSql.BeginTransaction();
                         //foreach (DataRow dr in ds.Tables[0].Rows)
@@ -259,7 +286,7 @@ namespace DAL
             }
             if (!String.IsNullOrEmpty(message))
             {
-                string tempStr = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss    ") + message + "\r\n";
+                string tempStr = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss    ") + "C2" + message + "\r\n";
                 LogStr.Append(tempStr);
                 String savePath = "D:\\GetC2RowNum_Log";
                 String fileName = DateTime.Now.ToString("yyyy-MM-dd") + ".log";
@@ -269,9 +296,52 @@ namespace DAL
             return message;
         }
 
-        private IList<CData> ConvetToObjList(DataTable dataTable)
+        private void GetCPKAndStandard(IList<CData> list, string matID, DataSet dsT)
+        {
+            switch ("")
+            {
+                case "":
+                    break;
+                default:
+            }
+        }
+
+        private String GetMatID(string mat_Ctrl)
+        {
+            String sql = String.Format(@"SELECT PARTID FROM SPC.PART WHERE GROUPID=2 AND CTRL='{0}'", mat_Ctrl);
+            String matID = dsSSQL.ExecuteScalar(sql).ToString();
+            return matID;
+        }
+
+        private DataSet GetTestID(string machine)
+        {
+            String sql = String.Format(@"SELECT TESTID,TEST from SPC.TEST_ITEM_CFG WHERE FILTER LIKE '%{0}%'", machine);
+            DataSet ds = dsSSQL.ExecuteDataSet(sql);
+            return ds;
+        }
+
+        private void SaveC2StatisticsData(IList<CData> list, CDataResult res)
         {
             throw new NotImplementedException();
+        }
+
+        private IList<CData> ConvetToObjList(DataTable dataTable)
+        {
+            IList<CData> list = new List<CData>();
+            CData cd = new CData();
+            foreach (DataRow dr in dataTable.Rows)
+            {
+                cd.Pd = Convert.ToDecimal(dr["PD"]);
+                cd.Len = Convert.ToDecimal(dr["LEN_"]);
+                cd.CIRC = Convert.ToDecimal(dr["CIRC"]);
+                cd.Wg = Convert.ToDecimal(dr["WG"]);
+                cd.TV = Convert.ToDecimal(dr["TV"]);
+                cd.testdate = Convert.ToDateTime(dr["testdate"]);
+                cd.Wo = dr["WO"].ToString();
+                cd.mat_Ctrl = dr["MAT_CTRL"].ToString();
+                list.Add(cd);
+            }
+            return list;
         }
 
         private DataSet GetC2DataFromMes(DateTime startTime, DateTime endTime, string machine)
@@ -307,5 +377,6 @@ namespace DAL
             DataSet ds = dsSql.ExecuteDataSet(sql, QcAnalysis.ConnectionState.KeepOpen);
             return ds;
         }
+
     }
 }
