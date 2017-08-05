@@ -10,7 +10,7 @@ namespace DAL
 {
     public class MathUtils
     {
-        public  void GetStatistics(IList<CData> list, CDataResult res)
+        public void GetStatistics(IList<CData> list, CDataResult res)
         {
             //计算平均值
             res.WG_AVG = list.Average(c => c.Wg);
@@ -31,7 +31,7 @@ namespace DAL
             res.TV_STDV = Convert.ToDecimal(ComputSD(lenData));
         }
 
-        private static IList<double> InitDoubleData(IList<CData> list, string type)
+        public IList<double> InitDoubleData(IList<CData> list, string type)
         {
             IList<double> dList = new List<double>();
             switch (type)
@@ -73,7 +73,7 @@ namespace DAL
         /// </summary>
         /// <param name="data"></param>
         /// <returns></returns>
-        public  double ComputSD(IList<double> data)
+        public double ComputSD(IList<double> data)
         {
             double xSum = 0.0;
             double xAvg = 0.0;
@@ -89,30 +89,69 @@ namespace DAL
             {
                 sSum += ((data[j] - xAvg) * (data[j] - xAvg));
             }
-            tmpStDev = Convert.ToSingle(Math.Sqrt((sSum / (arrNum - 1))).ToString());
+            if (arrNum - 1 == 0)
+            {
+                tmpStDev = Convert.ToSingle(Math.Sqrt((sSum / (arrNum))).ToString());
+            }
+            else
+            {
+                tmpStDev = Convert.ToSingle(Math.Sqrt((sSum / (arrNum - 1))).ToString());
+            }
             return tmpStDev;
         }
-        public  double ComputCPK(IList<double> list, double max_std, double AvgValue, double min_std)
+        /// <summary>
+        /// 计算一组数据的CPK（每5个样本的标偏均值系数）
+        /// </summary>
+        /// <param name="list"></param>
+        /// <param name="max_std"></param>
+        /// <param name="AvgValue"></param>
+        /// <param name="min_std"></param>
+        /// <returns></returns>
+        public double ComputCPK(IList<double> list, double max_std, double AvgValue, double min_std)
         {
             double SdValue = 0.0;
+            double cpk = 0;
             IList<double> cList = new List<double>();
             IList<double> sdList = new List<double>();
-            for (int i = 0; i < list.Count; i++)
+            if (list.Count < 5)
             {
-                cList.Add(Convert.ToDouble(list[i]));
-                if (cList.Count == 5)
+                for (int i = 0; i < list.Count; i++)
                 {
-                    //根据cllist计算标偏
-                    sdList.Add(ComputSD(cList));
-                    cList = new List<double>();
+                    cList.Add(Convert.ToDouble(list[i]));
+                }
+                sdList.Add(ComputSD(cList));
+            }
+            else
+            {
+                for (int i = 0; i < list.Count; i++)
+                {
+                    cList.Add(Convert.ToDouble(list[i]));
+                    if (cList.Count == 5)
+                    {
+                        //根据cllist计算标偏
+                        sdList.Add(ComputSD(cList));
+                        cList = new List<double>();
+                    }
                 }
             }
             SdValue = sdList.Average() / 0.94;
-            return Math.Min(((Convert.ToDouble(max_std) - Convert.ToDouble(AvgValue)) / (3 * Convert.ToDouble(SdValue))), ((Convert.ToDouble(AvgValue) - Convert.ToDouble(min_std)) / (3 * Convert.ToDouble(SdValue))));
+            if (SdValue>0)
+            {
+                cpk = Math.Min((max_std - AvgValue) / (3 * SdValue), (AvgValue - min_std) / (3 * SdValue));
+            }
+            return cpk;
         }
-        public  double ComputCPK(double max_std, double AvgValue, double SdValue, double min_std)
+        /// <summary>
+        /// 计算一组数据的CPK
+        /// </summary>
+        /// <param name="max_std"></param>
+        /// <param name="AvgValue"></param>
+        /// <param name="SdValue"></param>
+        /// <param name="min_std"></param>
+        /// <returns></returns>
+        public double ComputCPK(double max_std, double AvgValue, double SdValue, double min_std)
         {
-            return Math.Min(((Convert.ToDouble(max_std) - Convert.ToDouble(AvgValue)) / (3 * Convert.ToDouble(SdValue))), ((Convert.ToDouble(AvgValue) - Convert.ToDouble(min_std)) / (3 * Convert.ToDouble(SdValue))));
+            return Math.Min((max_std - AvgValue) / (3 * SdValue), (AvgValue - min_std) / (3 * SdValue));
         }
 
     }

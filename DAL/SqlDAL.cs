@@ -209,7 +209,7 @@ namespace DAL
         /// <returns></returns>
         public string C2DataStatistics()
         {
-            String message;
+            String message = "";
             LogStr.Clear();
 
             DateTime startTime;
@@ -217,9 +217,11 @@ namespace DAL
             String wo;
             String machine;
             int orderNo;
-            String mat_Ctrl ;
-            String matID ;
+            String mat_Ctrl;
+            double UCL;
+            double LCL;
             DataSet dsC2Data = GetC2DataStatTime();
+            CDataResult res = new CDataResult();
 
             if (dsC2Data.Tables[0].Rows.Count > 0 || dsC2Data.Tables[1].Rows.Count > 0 || dsC2Data.Tables[2].Rows.Count > 0)
             {
@@ -230,58 +232,86 @@ namespace DAL
                     machine = dsC2Data.Tables[i].Rows[0]["MACHINE"].ToString();
                     orderNo = Convert.ToInt32(dsC2Data.Tables[i].Rows[0]["ORDERNUM"]);
                     DataSet dsEndTime = GetC2DataEndTime(startTime, machine);
-                    endTime = Convert.ToDateTime(dsEndTime.Tables[0].Rows[0]["ROWTIME"]);
-                    DataSet ds = GetC2DataFromMes(startTime, endTime, machine);
-
-                    if (ds.Tables[0].Rows.Count > 0)
+                    if (dsEndTime.Tables[0].Rows.Count > 0)
                     {
-                        IList<CData> list = ConvetToObjList(ds.Tables[0]);
-                        CDataResult res = new CDataResult();
-                       mu.GetStatistics(list, res);
-                       mat_Ctrl = list[list.Count - 1].mat_Ctrl;
-                       startTime = list[list.Count + 1].testdate;
-                       //取标准 计算CPK
-                        DataSet dsT = GetTestID(machine);
-                        matID = GetMatID(mat_Ctrl);
-                        switch (machine)
+                        endTime = Convert.ToDateTime(dsEndTime.Tables[0].Rows[0]["ROWTIME"]);
+                        DataSet ds = GetC2DataFromMes(startTime, endTime, machine);
+
+                        if (ds.Tables[0].Rows.Count > 1)
                         {
-                            case "":
-                                break;
-                            case "":
-                                break;
-                            case "":
-                                break;
-                            default:
-                                break;
+                            IList<CData> list = ConvetToObjList(ds.Tables[0]);
+                            //计算平均值
+                            res.WG_AVG = list.Average(c => c.Wg);
+                            res.CIRC_AVG = list.Average(c => c.CIRC);
+                            res.LEN_AVG = list.Average(c => c.Len);
+                            res.PD_AVG = list.Average(c => c.Pd);
+                            res.TV_AVG = list.Average(c => c.TV);
+                            //计算标准偏差
+                            IList<double> wgData = mu.InitDoubleData(list, "WG");
+                            res.WG_STDV = Convert.ToDecimal(mu.ComputSD(wgData));
+                            IList<double> lenData = mu.InitDoubleData(list, "LEN");
+                            res.LEN_STDV = Convert.ToDecimal(mu.ComputSD(lenData));
+                            IList<double> pdData = mu.InitDoubleData(list, "PD");
+                            res.PD_STDV = Convert.ToDecimal(mu.ComputSD(pdData));
+                            IList<double> circData = mu.InitDoubleData(list, "CIRC");
+                            res.CIRC_STDV = Convert.ToDecimal(mu.ComputSD(circData));
+                            IList<double> tvData = mu.InitDoubleData(list, "TV");
+                            res.TV_STDV = Convert.ToDecimal(mu.ComputSD(tvData));
+                            //其他结果值
+                            mat_Ctrl = list[list.Count - 1].mat_Ctrl;
+                            res.checkTime = list[list.Count - 1].testdate;
+                            res.wo = list[list.Count - 1].Wo;
+                            res.machine = machine;
+                            if (wo.Equals(res.wo))
+                            {
+                                res.ordernum = orderNo + 1;
+                            }
+                            else
+                            {
+                                res.ordernum = 1;
+                            }
+                            //取标准 计算CPK
+                            DataSet dsStandard = GetStandard(machine, mat_Ctrl);
+                            if (dsStandard.Tables[0].Rows.Count > 0)
+                            {
+                                foreach (DataRow dr in dsStandard.Tables[0].Rows)
+                                {
+                                    UCL = Convert.ToDouble(dr["UCL"]);
+                                    LCL = Convert.ToDouble(dr["LCL"]);
+                                    switch (dr["TEST"].ToString())
+                                    {
+                                        case "WG":
+                                            res.WG_CPK = Convert.ToDecimal(mu.ComputCPK(wgData, UCL, Convert.ToDouble(res.WG_AVG), LCL));
+                                            break;
+                                        case "LEN_":
+                                            res.LEN_CPK = Convert.ToDecimal(mu.ComputCPK(lenData, UCL, Convert.ToDouble(res.LEN_AVG), LCL));
+                                            break;
+                                        case "CIRC":
+                                            res.CIRC_CPK = Convert.ToDecimal(mu.ComputCPK(circData, UCL, Convert.ToDouble(res.CIRC_AVG), LCL));
+                                            break;
+                                        case "PD":
+                                            res.PD_CPK = Convert.ToDecimal(mu.ComputCPK(pdData, UCL, Convert.ToDouble(res.PD_AVG), LCL));
+                                            break;
+                                        case "TV":
+                                            res.TV_CPK = Convert.ToDecimal(mu.ComputCPK(tvData, UCL, Convert.ToDouble(res.TV_AVG), LCL));
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                            }
                         }
-                        GetCPKAndStandard(list,matID,dsT);
+                        else
+                        {
+                            res.checkTime = endTime;
+                            res.machine = machine;
+                            res.wo = wo;
+                        }
+                        dsSql.BeginTransaction();
+                        message = SaveC2StatisticsData(res);
+                        dsSql.CommitTransaction();
 
-                        res.WG_CPK = Convert.ToDecimal(ComputCPK(wgData));
-                        SaveC2StatisticsData(list, res);
-                        //
-                        //dsSql.BeginTransaction();
-                        //foreach (DataRow dr in ds.Tables[0].Rows)
-                        //{
-                        //    int count = 1;
-                        //    decimal data = 0;
-                        //    decimal avg;
-                        //    decimal stdv;
-                        //    decimal cpk;
-
-                        //    if (String.IsNullOrEmpty( dr["PD"].ToString()))
-                        //    {
-                        //        data += Convert.ToDecimal(dr["PD"]);
-                        //    }
-                        //    wo = dr["BATCH_BRAND"].ToString();
-                        //    rowGuid = dr["rowguid"].ToString();
-                        //    message += SaveC2Data(endTime, machine, rowNum);
-                        //    rowNum++;
-
-                        //}
-                        //message += SaveC2TimeFlag(endTime, wo, machine);
-                        //dsSql.CommitTransaction();
                     }
-
                 }
             }
             if (!String.IsNullOrEmpty(message))
@@ -296,46 +326,72 @@ namespace DAL
             return message;
         }
 
-        private void GetCPKAndStandard(IList<CData> list, string matID, DataSet dsT)
+        private DataSet GetStandard(string machine, string mat_Ctrl)
         {
-            switch ("")
-            {
-                case "":
-                    break;
-                default:
-            }
-        }
-
-        private String GetMatID(string mat_Ctrl)
-        {
-            String sql = String.Format(@"SELECT PARTID FROM SPC.PART WHERE GROUPID=2 AND CTRL='{0}'", mat_Ctrl);
-            String matID = dsSSQL.ExecuteScalar(sql).ToString();
-            return matID;
-        }
-
-        private DataSet GetTestID(string machine)
-        {
-            String sql = String.Format(@"SELECT TESTID,TEST from SPC.TEST_ITEM_CFG WHERE FILTER LIKE '%{0}%'", machine);
+            String sql = String.Format(@"SELECT TIC.TEST,SL.UCL,SL.CL,SL.LCL FROM SPC.TEST_ITEM_CFG TIC
+            LEFT JOIN SPC.SPEC_LIM SL ON TIC.TESTID=SL.TESTID
+            WHERE TIC.TESTID IN (SELECT TESTID from SPC.TEST_ITEM_CFG WHERE FILTER LIKE '%{0}%')
+                       AND SL.PARTID IN (SELECT PARTID FROM SPC.PART WHERE GROUPID=2 AND CTRL='{1}') AND SL.STATUS=1", machine, mat_Ctrl);
             DataSet ds = dsSSQL.ExecuteDataSet(sql);
             return ds;
         }
-
-        private void SaveC2StatisticsData(IList<CData> list, CDataResult res)
+        private String SaveC2StatisticsData(CDataResult res)
         {
-            throw new NotImplementedException();
+            String message = "";
+            String sql = String.Format(@"INSERT INTO [SPC].[C2RESULTDATA]
+           ([CHECKTIME]
+           ,[WO]
+           ,[MACHINE]
+           ,[ORDERNUM]
+           ,[PD_AVG]
+           ,[PD_STDV]
+           ,[PD_CPK]
+           ,[CIRC_AVG]
+           ,[CIRC_STDV]
+           ,[CIRC_CPK]
+           ,[WG_AVG]
+           ,[WG_STDV]
+           ,[WG_CPK]
+           ,[LEN_AVG]
+           ,[LEN_STDV]
+           ,[LEN_CPK]
+           ,[TV_AVG]
+           ,[TV_STDV]
+           ,[TV_CPK])
+           VALUES('{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}','{9}','{10}','{11}','{12}','{13}','{14}','{15}','{16}','{17}','{18}')"
+                , res.checkTime, res.wo, res.machine, res.ordernum, res.PD_AVG, res.PD_STDV, res.PD_CPK, res.CIRC_AVG, res.CIRC_STDV
+                , res.CIRC_CPK, res.WG_AVG, res.WG_STDV, res.WG_CPK, res.LEN_AVG, res.LEN_STDV, res.LEN_CPK, res.TV_AVG, res.TV_STDV, res.TV_CPK);
+            try
+            {
+                dsSql.ExecuteNonQuery(sql, QcAnalysis.ConnectionState.KeepOpen);
+            }
+            catch (Exception ex)
+            {
+
+                message = ex.Message;
+            }
+            return message;
         }
+
 
         private IList<CData> ConvetToObjList(DataTable dataTable)
         {
             IList<CData> list = new List<CData>();
-            CData cd = new CData();
             foreach (DataRow dr in dataTable.Rows)
             {
+                CData cd = new CData();
                 cd.Pd = Convert.ToDecimal(dr["PD"]);
                 cd.Len = Convert.ToDecimal(dr["LEN_"]);
                 cd.CIRC = Convert.ToDecimal(dr["CIRC"]);
                 cd.Wg = Convert.ToDecimal(dr["WG"]);
-                cd.TV = Convert.ToDecimal(dr["TV"]);
+                if (String.IsNullOrEmpty(dr["TV"].ToString()))
+                {
+                    cd.TV = 0;
+                }
+                else
+                {
+                    cd.TV = Convert.ToDecimal(dr["TV"]);
+                }
                 cd.testdate = Convert.ToDateTime(dr["testdate"]);
                 cd.Wo = dr["WO"].ToString();
                 cd.mat_Ctrl = dr["MAT_CTRL"].ToString();
