@@ -158,7 +158,7 @@ namespace DAL
                     mat = dsTimeFlag.Tables[i].Rows[0]["MAT"].ToString();
                     machine = dsTimeFlag.Tables[i].Rows[0]["MACHINE"].ToString();
                     DataSet ds = this.GetC2Data(timeFlag, machine);
-                    if (ds.Tables[0].Rows.Count > 0)
+                    if (ds.Tables[0].Rows.Count > 19)
                     {
                         if (ds.Tables[0].Rows[0]["BATCH_BRAND"].ToString().Equals(mat))
                         {
@@ -403,15 +403,15 @@ namespace DAL
         private DataSet GetC2DataFromMes(DateTime startTime, DateTime endTime, string machine)
         {
             String sql = String.Format(@"SELECT  * FROM OfflineDataToSpc
-            WHERE testdate>DATEADD(HH, 8, '{0}') AND testdate<=DATEADD(HH, 8, '{1}') AND EQU_CTRL='{2}'", startTime, endTime, machine);
+            WHERE testdate> '{0}' AND testdate<= '{1}' AND EQU_CTRL='{2}'", startTime, endTime, machine);
             DataSet ds = dsSql.ExecuteDataSet(sql, QcAnalysis.ConnectionState.KeepOpen);
             return ds;
         }
 
         public DataSet GetC2DataEndTime(DateTime timeFlag, string machine)
         {
-            String sql = String.Format(@"SELECT TOP 1 ROWTIME FROM SPC.ROWNUMFLAG
-            WHERE ROWTIME>'{0}' AND MACHINE='{1}' AND ROWNUM=20
+            String sql = String.Format(@"SELECT TOP 1 DATEADD(HH,8,ROWTIME) ROWTIME FROM SPC.ROWNUMFLAG
+            WHERE ROWTIME>DATEADD(HH,-8,'{0}') AND MACHINE='{1}' AND ROWNUM=20
             ORDER BY ROWTIME", timeFlag, machine);
             DataSet ds = dsSql.ExecuteDataSet(sql, QcAnalysis.ConnectionState.KeepOpen);
             return ds;
