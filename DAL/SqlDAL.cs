@@ -158,7 +158,7 @@ namespace DAL
                     mat = dsTimeFlag.Tables[i].Rows[0]["MAT"].ToString();
                     machine = dsTimeFlag.Tables[i].Rows[0]["MACHINE"].ToString();
                     DataSet ds = this.GetC2Data(timeFlag, machine);
-                    if (ds.Tables[0].Rows.Count > 19)
+                    if (ds.Tables[0].Rows.Count > 5)
                     {
                         if (ds.Tables[0].Rows[0]["BATCH_BRAND"].ToString().Equals(mat))
                         {
@@ -237,7 +237,7 @@ namespace DAL
                         endTime = Convert.ToDateTime(dsEndTime.Tables[0].Rows[0]["ROWTIME"]);
                         DataSet ds = GetC2DataFromMes(startTime, endTime, machine);
 
-                        if (ds.Tables[0].Rows.Count > 1)
+                        if (ds.Tables[0].Rows.Count > 19)
                         {
                             IList<CData> list = ConvetToObjList(ds.Tables[0]);
                             //计算平均值
@@ -276,8 +276,8 @@ namespace DAL
                             {
                                 foreach (DataRow dr in dsStandard.Tables[0].Rows)
                                 {
-                                    UCL = Convert.ToDouble(dr["UCL"]);
-                                    LCL = Convert.ToDouble(dr["LCL"]);
+                                    UCL = Convert.ToDouble(dr["LCL"]);
+                                    LCL = Convert.ToDouble(dr["UCL"]);
                                     switch (dr["TEST"].ToString())
                                     {
                                         case "WG":
@@ -300,18 +300,17 @@ namespace DAL
                                     }
                                 }
                             }
+                            dsSql.BeginTransaction();
+                            message = SaveC2StatisticsData(res);
+                            dsSql.CommitTransaction();
                         }
-                        else
-                        {
-                            res.checkTime = endTime;
-                            res.machine = machine;
-                            res.wo = wo;
-                        }
-                        dsSql.BeginTransaction();
-                        message = SaveC2StatisticsData(res);
-                        dsSql.CommitTransaction();
-
                     }
+                    //else
+                    //{
+                    //    res.checkTime = endTime;
+                    //    res.machine = machine;
+                    //    res.wo = wo;
+                    //}
                 }
             }
             if (!String.IsNullOrEmpty(message))
@@ -377,6 +376,14 @@ namespace DAL
         private IList<CData> ConvetToObjList(DataTable dataTable)
         {
             IList<CData> list = new List<CData>();
+            int num = list.Count - 20;
+            if (num>0)
+            {
+                for (int i = 0; i < num; i++)
+                {
+                    list.RemoveAt(0);
+                }
+            }
             foreach (DataRow dr in dataTable.Rows)
             {
                 CData cd = new CData();
@@ -403,7 +410,7 @@ namespace DAL
         private DataSet GetC2DataFromMes(DateTime startTime, DateTime endTime, string machine)
         {
             String sql = String.Format(@"SELECT  * FROM OfflineDataToSpc
-            WHERE testdate> '{0}' AND testdate<= '{1}' AND EQU_CTRL='{2}'", startTime, endTime, machine);
+            WHERE testdate> '{0}' AND testdate<= '{1}' AND EQU_CTRL='{2}' ORDER BY testdate", startTime, endTime, machine);
             DataSet ds = dsSql.ExecuteDataSet(sql, QcAnalysis.ConnectionState.KeepOpen);
             return ds;
         }
