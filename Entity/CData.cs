@@ -16,6 +16,6 @@ namespace Entity
         public decimal CIRC { get; set; }
         public decimal Len { get; set; }
         public decimal Pd { get; set; }
-        public decimal? TV { get; set; }
+        public decimal TV { get; set; }
     }
 }

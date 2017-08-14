@@ -64,7 +64,10 @@ namespace Business
             }
             return message;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public string GetC2RowNum()
         {
 
@@ -73,7 +76,10 @@ namespace Business
 
             return msg;
         }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
 
         public string C2DataStatistics()
         {

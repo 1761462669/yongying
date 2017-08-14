@@ -94,7 +94,7 @@ namespace TimingService
             timer1.Interval = 5000;
             this.Text = "定时服务，运行中";
             timer1.Start();
-            timer2.Interval = 600000;
+            timer2.Interval = 10000;
             timer2.Start();
         }
         private void StopService()

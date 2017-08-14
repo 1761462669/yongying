@@ -24,9 +24,9 @@ namespace Entity
         public decimal LEN_AVG { get; set; }
         public decimal LEN_STDV { get; set; }
         public decimal LEN_CPK { get; set; }
-        public decimal? TV_AVG { get; set; }
-        public decimal? TV_STDV { get; set; }
-        public decimal? TV_CPK { get; set; }
+        public decimal TV_AVG { get; set; }
+        public decimal TV_STDV { get; set; }
+        public decimal TV_CPK { get; set; }
 
     }
 }
