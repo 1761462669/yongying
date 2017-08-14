@@ -209,7 +209,7 @@ namespace DAL
         /// <returns></returns>
         public string C2DataStatistics()
         {
-            String message;
+            String message="";
             LogStr.Clear();
 
             DateTime startTime;
